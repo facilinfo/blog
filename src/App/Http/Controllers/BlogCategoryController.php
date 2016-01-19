@@ -26,9 +26,10 @@ class BlogCategoryController extends Controller
 
     public function index()
     {
+        $user=Auth::user();
         $categories =BlogCategory::all();
 
-        return view('blog.categories.index', compact('categories'));
+        return view('blog.categories.index', compact('categories', 'user'));
     }
 
 

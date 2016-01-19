@@ -3,6 +3,7 @@
 namespace Facilinfo\Blog;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -11,11 +12,11 @@ class BlogServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate)
     {
         // Migrations
         $this->publishes([
-            __DIR__ . '/database/migrations' => $this->app->databasePath() . '/migrations'
+            __DIR__ . '/Database/migrations' => $this->app->databasePath() . '/migrations'
         ], 'migrations');
 
         // Routes
@@ -52,5 +53,6 @@ class BlogServiceProvider extends ServiceProvider
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('BootForm', '\AdamWathan\BootForms\Facades\BootForm');
 
+        $this->app->register(\Bican\Roles\RolesServiceProvider::class);
     }
 }
