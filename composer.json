@@ -1,0 +1,22 @@
+{
+    "name": "facilinfo/blog",
+    "description": "Blog package for laravel 5.2+",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel"],
+    "authors": [
+        {
+            "name": "facilinfo",
+            "email": "contact@facil-info.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "adamwathan/bootforms": "v0.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Facilinfo\\Blog\\": "src/"
+        }
+    }
+}
