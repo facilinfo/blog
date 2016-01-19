@@ -21,6 +21,12 @@ class BlogServiceProvider extends ServiceProvider
         // Routes
         include __DIR__.'/App/Http/routes.php';
 
+        // Views
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'gallery');
+        $this->publishes([
+            __DIR__ . '/Resources/Views' => $this->app->basePath() . '/resources/views'
+        ], 'views');
+
         // Js
         $this->publishes([
             __DIR__ . '/Assets/Js' => $this->app->publicPath() . '/js'
