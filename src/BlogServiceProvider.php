@@ -54,5 +54,12 @@ class BlogServiceProvider extends ServiceProvider
         $loader->alias('BootForm', '\AdamWathan\BootForms\Facades\BootForm');
 
         $this->app->register(\Bican\Roles\RolesServiceProvider::class);
+
+        $this->app->register(\Unisharp\Ckeditor\ServiceProvider::class);
+
+        $this->app->register(\Unisharp\Ckeditor\ServiceProvider::class);
+
+        $this->app->register(\Bestmomo\Filemanager\FilemanagerServiceProvider::class);
+
     }
 }

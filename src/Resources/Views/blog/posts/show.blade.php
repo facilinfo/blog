@@ -1,14 +1,16 @@
 @extends('app')
+
 @section('tab')
-	<?php $tab="posts";?>
+	<?php $tab="categories";?>
 @stop
+
 @section('content')
     <div class="col-sm-offset-2 col-sm-8">
     	<br>
 		<div class="panel panel-primary">	
 			<div class="panel-heading">{{ $post->title }}</div>
 			<div class="panel-body"> 
-				<p>{!!  $post->body !!}</p>
+				<p>{{ $post->body }}</p>
 				
 			</div>
 		</div>				

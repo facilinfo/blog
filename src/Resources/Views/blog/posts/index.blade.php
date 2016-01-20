@@ -1,58 +1,70 @@
-@extends('app')
+@extends('blog.app')
 
 @section('content')
     <br>
-    <div class="col-sm-offset-2 col-sm-8">
+    <div class="col-md-offset-1 col-md-10">
+		@include('blog.flash')
+				<h1>Liste des articles</h1>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Liste des articles</h3>
-			</div>
-			<table class="table">
+		@if(Auth::check())
+			<a class="btn btn-primary pull-right" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogPostController@create') }}">  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un article</a>
+
+		@endif
+		<br><br><br>
+
+			<table id="FItable" class="display" width="100%" cellspacing="0">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>Titre</th>
-						<th>Auteur</th
+						<th>Nom</th>
+						<th>Slug</th>
 						<th></th>
 						<th></th>
-						<th></th>
+
 					</tr>
 				</thead>
+				<tfoot>
+				<tr>
+					<th>Nom</th>
+					<th>Slug</th>
+					<th></th>
+					<th></th>
+				</tr>
+				</tfoot>
 				<tbody>
 				
 					@foreach ($posts as $post)
-						<tr>
-							<td>{!! $post->id !!} </td>
-							<td class="text-primary"><strong>{!! link_to_route('post.show', $post->title, [$post->id])!!}</strong></td>
-							<td class="text-primary"><strong>{!! $post->user->name !!}</strong></td>
-							<td>
-							@if(Auth::check() and ((Auth::user()->role=='author' and $post->user->id==Auth::user()->id) or (Auth::user()->role=='admin')))
-									{!! link_to_route('post.edit', 'Modifier', [$post->id], ['class' => 'btn btn-warning btn-block']) !!}
-							@endif 
 
-							
+
+						<tr>
+							<td>
+								{!! $post->title !!}
+							</td>
+
+							<td>
+								{!! $post->slug !!}
 							</td>
 							<td>
-							@if(Auth::check() and Auth::user()->role=='admin')
-									{!! Form::open(['method' => 'DELETE', 'route' => ['post.destroy', $post->id]]) !!}
-									{!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer cet article ?\')']) !!}
 
-									{!! Form::close() !!}
+								@if(Auth::check())
+									<a class="btn btn-warning" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogPostController@edit', $post->id) }}">  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modifier</a>
 								@endif
 
-							
+							</td>
+							<td>
+
+								@if(Auth::check())
+									<a class="btn btn-danger" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogPostController@destroy', $post) }}" data-method="delete" data-confirm="Voulez vous vraiment supprimer cet article ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a>
+								@endif
+
 							</td>
 						</tr>
 					@endforeach
 	  			</tbody>
 			</table>
-		</div>
 
-							
-		@if(Auth::check() and (Auth::user()->role=='admin' or Auth::user()->role=='author'))
-		{!! link_to_route('post.create', 'Ajouter un article', [], ['class' => 'btn btn-info pull-right']) !!}
-		{!! $links !!}
-		@endif
 	</div>
+@stop
+
+@section('scripts')
+
 @stop

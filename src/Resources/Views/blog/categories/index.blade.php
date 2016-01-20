@@ -18,7 +18,7 @@
 						<th>Nom</th>
 						<th>Slug</th>
 						<th></th>
-
+						<th></th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -42,10 +42,16 @@
 							<td>
 								{!! $category->slug !!}
 							</td>
-							<td class="pull-right">
+							<td>
 
-								@if(Auth::check())
+								@if($user->hasRole('admin'))
 									<a class="btn btn-warning" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogCategoryController@edit', $category->id) }}">  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modifier</a>
+								@endif
+
+
+							<td>
+
+								@if($user->hasRole('admin'))
 									<a class="btn btn-danger" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogCategoryController@destroy', $category) }}" data-method="delete" data-confirm="Voulez vous vraiment supprimer cette catégorie ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a>
 								@endif
 
@@ -58,35 +64,3 @@
 	</div>
 @stop
 
-@section('scripts')
-	<script>
-		$(document).ready(function() {
-			$('#FItable').DataTable({
-				stateSave: true,
-				"language":
-				{
-					"sProcessing":     "Traitement en cours...",
-					"sSearch":         "Rechercher&nbsp;:",
-					"sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-					"sInfo":           "Affichage des &eacute;l&eacute;ments _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-					"sInfoEmpty":      "Affichage des &eacute;l&eacute;ments 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-					"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-					"sInfoPostFix":    "",
-					"sLoadingRecords": "Chargement en cours...",
-					"sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-					"sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-					"oPaginate": {
-						"sFirst":      "Premier",
-						"sPrevious":   "Pr&eacute;c&eacute;dent",
-						"sNext":       "Suivant",
-						"sLast":       "Dernier"
-					},
-					"oAria": {
-						"sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-						"sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-					}
-				}
-			});
-		});
-	</script>
-@stop

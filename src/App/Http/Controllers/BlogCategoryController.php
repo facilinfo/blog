@@ -10,6 +10,8 @@ use Facilinfo\Blog\App\Http\Requests\BlogCategoryUpdateRequest;
 
 use Facilinfo\Blog\App\Repositories\BlogCategoryRepository;
 
+use Facilinfo\Blog\Models\BlogUser;
+
 use Illuminate\Http\Request;
 use Auth;
 
@@ -26,6 +28,7 @@ class BlogCategoryController extends Controller
 
     public function index()
     {
+       // $user=new BlogUser();
         $user=Auth::user();
         $categories =BlogCategory::all();
 

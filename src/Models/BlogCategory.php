@@ -25,9 +25,9 @@ class BlogCategory extends Model {
      * @var array
      */
 
-   /* public function posts()
+   public function posts()
     {
-        return $this->hasMany('App\Post', 'category_id');
+        return $this->hasMany('Facilinfo\Blog\Models\BlogPost', 'category_id');
     }
 
     public static function boot()
@@ -36,18 +36,17 @@ class BlogCategory extends Model {
 
         // cause a delete of a category to cascade to children so they are also deleted
         static::deleted(function($category)
-
-
         {
-            $posts=Post::where('category_id', '=', $category->id)->get();
+            $posts=BlogPost::where('category_id', '=', $category->id)->get();
 
-            foreach($posts as $post){
-                $comments=Comment::where('on_post', '=', $post->id);
-                $comments->delete();
+            if(!empty($posts)){
+                foreach($posts as $post){
+                    $comments=Comment::where('on_post', '=', $post->id);
+                    $comments->delete();
+                }
+                $category->posts()->delete();
             }
-            $category->posts()->delete();
         });
     }
 
-    */
 }
