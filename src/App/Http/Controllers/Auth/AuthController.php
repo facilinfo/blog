@@ -95,6 +95,10 @@ class AuthController extends Controller
         return $user;
     }
 
+    public function getLogin(){
+        return view('blog::auth.login');
+    }
+
     public function postLogin(Request $request)
     {
         $this->validate($request, [
