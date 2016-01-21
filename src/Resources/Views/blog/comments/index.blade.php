@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('title')
+	Liste des commentaires
+@endsection
+
 @section('tab')
 <?php $tab="comments";?>
 @stop

@@ -1,9 +1,13 @@
-@extends('blog.app')
+@extends('blog::blog.app')
+
+@section('title')
+	Liste des articles
+@endsection
 
 @section('content')
     <br>
     <div class="col-md-offset-1 col-md-10">
-		@include('blog.flash')
+		@include('blog::blog.flash')
 				<h1>Liste des articles</h1>
 
 		@if(Auth::check())
@@ -45,14 +49,14 @@
 							</td>
 							<td>
 
-								@if(Auth::check())
+								@if(Auth::user()->isAdmin()||Auth::user()->allowed('delete.posts', $post))
 									<a class="btn btn-warning" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogPostController@edit', $post->id) }}">  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modifier</a>
 								@endif
 
 							</td>
 							<td>
 
-								@if(Auth::check())
+								@if(Auth::user()->isAdmin()||Auth::user()->allowed('delete.posts', $post))
 									<a class="btn btn-danger" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogPostController@destroy', $post) }}" data-method="delete" data-confirm="Voulez vous vraiment supprimer cet article ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a>
 								@endif
 

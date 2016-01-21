@@ -28,11 +28,10 @@ class BlogCategoryController extends Controller
 
     public function index()
     {
-       // $user=new BlogUser();
         $user=Auth::user();
         $categories =BlogCategory::all();
 
-        return view('blog.categories.index', compact('categories', 'user'));
+        return view('blog::blog.categories.index', compact('categories', 'user'));
     }
 
 
@@ -41,7 +40,7 @@ class BlogCategoryController extends Controller
     {
         $categories =Category::all();
 
-        return view('blog.categories.private_index', compact('categories'));
+        return view('blog::blog.categories.private_index', compact('categories'));
     }
 
     /**
@@ -52,7 +51,7 @@ class BlogCategoryController extends Controller
     public function create()
     {
         $category = new BlogCategory();
-        return view('blog.categories.create', compact('category'));
+        return view('blog::blog.categories.create', compact('category'));
     }
 
     /**
@@ -65,7 +64,7 @@ class BlogCategoryController extends Controller
     {
         $category = $this->categoryRepository->store($request->all());
 
-        return redirect('blog/categories')->withSuccess("La catégorie " . $category->title . " a été créée.");
+        return redirect(route('blog.categories.index'))->withSuccess("La catégorie " . $category->title . " a été créée.");
     }
 
 
@@ -80,7 +79,7 @@ class BlogCategoryController extends Controller
     {
         $category = $this->categoryRepository->getById($id);
         if(Auth::user() || Auth::user()->role=='author'){
-            return view('blog.categories.edit',  compact('category'));
+            return view('blog::blog.categories.edit',  compact('category'));
         }
         else
         {
@@ -102,7 +101,7 @@ class BlogCategoryController extends Controller
     {
         $this->categoryRepository->update($id, $request->all());
 
-        return redirect('blog/categories')->withSuccess("La catégorie " . $request->input('title') . "   a été modifiée.");
+        return redirect(route('blog.categories.index'))->withSuccess("La catégorie " . $request->input('title') . "   a été modifiée.");
     }
 
     /**
@@ -117,7 +116,7 @@ class BlogCategoryController extends Controller
 
         $this->categoryRepository->destroy($id);
 
-        return redirect('blog/categories')->withSuccess("La catégorie " . $category->title . " a été supprimée.");
+        return redirect(route('blog.categories.index'))->withSuccess("La catégorie " . $category->title . " a été supprimée.");
 
     }
 }

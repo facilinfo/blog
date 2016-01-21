@@ -52,7 +52,7 @@ class BlogPostController extends Controller
         $posts = $this->postRepository->get();
 
 
-        return view('blog.posts.index', compact('posts'));
+        return view('blog::blog.posts.index', compact('posts'));
     }
 
     /**
@@ -65,7 +65,7 @@ class BlogPostController extends Controller
         $categories = [''=>''] +DB::table('categories')->lists('title','id');
         $post=new BlogPost();
 
-        return view('blog.posts.create', compact('categories', 'post'));
+        return view('blog::blog.posts.create', compact('categories', 'post'));
     }
 
     /**
@@ -78,7 +78,7 @@ class BlogPostController extends Controller
     {
         $post = $this->postRepository->store($request->all());
 
-        return redirect('blog/posts')->withSuccess("L'article " . $post->title . " a été créé.");
+        return redirect(route('blog.posts.index'))->withSuccess("L'article " . $post->title . " a été créé.");
     }
 
     /**
@@ -102,12 +102,11 @@ class BlogPostController extends Controller
      */
     public function edit($id)
     {
-        $categories = DB::table('categories')->lists('title','id');
-
         $post = $this->postRepository->getById($id);
 
-            return view('blog.posts.edit',  compact('post', 'categories'));
 
+            $categories = DB::table('categories')->lists('title','id');
+            return view('blog::blog.posts.edit',  compact('post', 'categories'));
 
     }
 
@@ -123,7 +122,7 @@ class BlogPostController extends Controller
 
         $this->postRepository->update($id, $request->all());
 
-        return redirect('blog/posts')->withSuccess("L'article " . $request->input('title') . "   a été modifié.");
+        return redirect(route('blog.posts.index'))->withSuccess("L'article " . $request->input('title') . "   a été modifié.");
     }
 
     /**
@@ -134,9 +133,10 @@ class BlogPostController extends Controller
      */
     public function destroy($id)
     {
+        $post=$this->postRepository->getById($id);
         $this->postRepository->destroy($id);
 
-        return redirect()->back();
+        return redirect(route('blog.posts.index'))->withSuccess("L'article $post->title a été supprimé.");
     }
 
     public function search(Request $request){

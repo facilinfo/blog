@@ -4,6 +4,7 @@ namespace Facilinfo\Blog;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Bican\Roles\Models\Permission;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -23,10 +24,15 @@ class BlogServiceProvider extends ServiceProvider
         include __DIR__.'/App/Http/routes.php';
 
         // Views
-        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'gallery');
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'blog');
         $this->publishes([
             __DIR__ . '/Resources/Views' => $this->app->basePath() . '/resources/views'
         ], 'views');
+        //Translations
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/Lang', 'blog');
+        $this->publishes([
+            __DIR__ . '/Resources/Lang' => $this->app->basePath() . '/resources/lang'
+        ], 'lang');
 
         // Js
         $this->publishes([
@@ -41,12 +47,9 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['blog'] = $this->app->share(function($app) {
-            return new Blog;
-        });
 
         // Config
-       // $this->mergeConfigFrom( __DIR__.'/Config/blog.php', 'gallery');
+        $this->mergeConfigFrom( __DIR__.'/Config/blog.php', 'blog');
 
         //Load dependencies
         $this->app->register(\AdamWathan\BootForms\BootFormsServiceProvider::class);
@@ -54,8 +57,6 @@ class BlogServiceProvider extends ServiceProvider
         $loader->alias('BootForm', '\AdamWathan\BootForms\Facades\BootForm');
 
         $this->app->register(\Bican\Roles\RolesServiceProvider::class);
-
-        $this->app->register(\Unisharp\Ckeditor\ServiceProvider::class);
 
         $this->app->register(\Unisharp\Ckeditor\ServiceProvider::class);
 

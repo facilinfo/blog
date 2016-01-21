@@ -1,4 +1,4 @@
-@extends('blog.app')
+@extends('blog::blog.app')
 
 @section('title')
 	Ajouter une catégorie
@@ -12,6 +12,6 @@
 	<div class="col-md-offset-1 col-md-10">
 		<h1>Ajouter une catégorie</h1>
 
-		@include('blog.categories.form', ['action' => 'store'])
+		@include('blog::blog.categories.form', ['action' => 'store'])
 	</div>
 @endsection

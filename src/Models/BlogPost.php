@@ -35,6 +35,9 @@ class BlogPost extends Model {
         return $this->belongsTo('Facilinfo\Blog\Models\BlogCategory', 'category_id');
     }
 
+
+
+
     /*public function comments()
     {
         return $this->hasMany('App\Comment', 'on_post');
@@ -52,4 +55,6 @@ class BlogPost extends Model {
         });
     }
     */
+
+
 }

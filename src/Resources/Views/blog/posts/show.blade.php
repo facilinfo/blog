@@ -1,4 +1,4 @@
-@extends('app')
+@extends('blog::blog.app')
 
 @section('tab')
 	<?php $tab="categories";?>

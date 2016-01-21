@@ -3,7 +3,6 @@
 namespace Facilinfo\Blog\App\Repositories;
 
 use Facilinfo\Blog\Models\BlogCategory;
-use Facilinfo\Blog\App\BlogPost;
 use Illuminate\Support\Str;
 
 class BlogCategoryRepository
@@ -23,15 +22,6 @@ class BlogCategoryRepository
         $category->slug = Str::slug($inputs['title'], '-');
 
         $category->save();
-    }
-
-
-
-    public function getPaginate($n)
-    {
-        return $this->category
-            ->orderBy('categories.title')
-            ->paginate($n);
     }
 
     public function store(Array $inputs)

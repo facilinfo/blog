@@ -1,4 +1,4 @@
-@extends('blog.app')
+@extends('blog::blog.app')
 
 @section('title')
 	Ajouter un article

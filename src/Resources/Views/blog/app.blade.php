@@ -50,6 +50,8 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ route('blog.categories.index') }}">Catégories</a></li>
                     <li><a href="{{ route('blog.posts.index') }}">Articles</a></li>
+                    <li><a href="{{ route('blog.permissions.index') }}">Permissions</a></li>
+                    <li><a href="{{ route('blog.roles.index') }}">Roles</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -90,7 +92,7 @@
     <script>
         $(document).ready(function() {
             $('#FItable').DataTable({
-                stateSave: true,
+                stateSave: false,
                 "language":
                 {
                     "sProcessing":     "Traitement en cours...",

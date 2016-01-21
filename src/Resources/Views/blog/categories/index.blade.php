@@ -1,9 +1,13 @@
-@extends('blog.app')
+@extends('blog::blog.app')
+
+@section('title')
+	Liste des catégories
+@endsection
 
 @section('content')
     <br>
     <div class="col-md-offset-1 col-md-10">
-		@include('blog.flash')
+		@include('blog::blog.flash')
 				<h1>Liste des categories</h1>
 
 		@if(Auth::check())

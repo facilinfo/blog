@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('title')
+	Liste des utilisateurs
+@endsection
+
 @section('tab')
 <?php $tab="users";?>
 @stop

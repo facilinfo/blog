@@ -1,6 +1,6 @@
 
 
-@extends('blog.app')
+@extends('blog::blog.app')
 
 @section('title')
 	Modifier un article

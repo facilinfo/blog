@@ -1,9 +1,7 @@
-
-
 @extends('blog::blog.app')
 
 @section('title')
-	Modifier une catégorie
+	Ajouter une permission
 @endsection
 
 @section('active_tab')
@@ -12,8 +10,8 @@
 
 @section('content')
 	<div class="col-md-offset-1 col-md-10">
-		<h1>Modifier une catégorie</h1>
+		<h1>Ajouter une permission</h1>
 
-		@include('blog::blog.categories.form', ['action' => 'update'])
+		@include('blog::blog.permissions.form', ['action' => 'store'])
 	</div>
 @endsection
