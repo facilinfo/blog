@@ -1,4 +1,4 @@
-@extends('blog.emails.html-template')
+@extends('blog::blog.emails.html-template')
 
 @section('content')
     Bonjour,<br/><br/>
@@ -7,7 +7,7 @@
 
     Veuillez valider votre compte en cliquant sur le lien de confirmation :<br/><br/>
 
-    <a href="{{ url('auth/confirm', [$user->id, $token]) }}">{{ url('auth/confirm', [$user->id, $token]) }}</a><br/><br/>
+    <a href="{{ url('confirm', [$user->id, $token]) }}">{{ url('confirm', [$user->id, $token]) }}</a><br/><br/>
 
     Merci.
 

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Facilinfo\Blog\App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+
+use Illuminate\Http\Request;
+
 
 class PasswordController extends Controller
 {
@@ -29,4 +32,24 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function showLinkRequestForm()
+    {
+        return view('blog::auth.passwords.email');
+    }
+
+    public function showResetForm(Request $request, $token = null)
+    {
+        if (is_null($token)) {
+            return $this->getEmail();
+        }
+
+        $email = $request->input('email');
+
+        return view('blog::auth.passwords.reset')->with(compact('token', 'email'));
+
+    }
+
+
+
 }

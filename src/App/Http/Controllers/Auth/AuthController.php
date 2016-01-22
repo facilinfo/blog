@@ -88,7 +88,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password'])
         ]);
 
-        $this->mailer->send(['blog.emails.html-register', 'blog.emails.text-register'], compact('token', 'user'), function ($message) use ($user) {
+        $this->mailer->send(['blog::blog.emails.html-register', 'blog::blog.emails.text-register'], compact('token', 'user'), function ($message) use ($user) {
             $message->to($user->email)->subject('Confirmation de création de compte');
         });
         $user->attachRole(config('blog.default-role-id'));
@@ -125,7 +125,6 @@ class AuthController extends Controller
 
 
                 if (Auth::attempt($credentials, $request->has('remember')) != 'unconfirmed') {
-                    dd('1');
                     if (Auth::attempt($credentials, $request->has('remember'))) {
 
                         return $this->handleUserWasAuthenticated($request, $throttles);
@@ -147,7 +146,6 @@ class AuthController extends Controller
                 if ($throttles) {
                     $this->incrementLoginAttempts($request);
                 }
-                dd('3');
 
                 return redirect()->back()
                     ->withInput($request->only($this->loginUsername(), 'remember'))
@@ -158,13 +156,13 @@ class AuthController extends Controller
             else {
                 return redirect()->back()
                     ->withInput($request->only($this->loginUsername(), 'remember'))
-                    ->withProblem(Lang::get('auth.failedconfirm'));
+                    ->withProblem(trans('blog::auth.failedconfirm'));
             }
 
         } else {
             return redirect()->back()
                 ->withInput($request->only($this->loginUsername(), 'remember'))
-                ->withProblem(Lang::get('auth.failed'));
+                ->withProblem(trans('blog::auth.failed'));
         }
 
 
@@ -172,10 +170,46 @@ class AuthController extends Controller
 
     protected function getFailedConfirmedMessage()
     {
-        return Lang::has('auth.failedconfirm')
-            ? Lang::get('auth.failedconfirm')
+        return trans('blog::auth.failedconfirm')
+            ? trans('blog::auth.failedconfirm')
             : 'Your account hasn\'t been confirmed.';
     }
 
+    public function getRegister(){
+        return view('blog::auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+       $this->create($request->all());
+
+        return redirect($this->redirectPath());
+    }
+
+    public function getConfirm($user_id, $token){
+
+
+        $user = User::findOrFail($user_id);
+
+        if($user->confirmation_token==$token){
+            $user->confirmation_token=null;
+            $user->confirmed=true;
+            $user->save();
+        } else {
+            abort(500);
+        }
+        //Auth::attempt(['name' => $user->name, 'password' => $user->password]);
+        Auth::login($user);
+        return redirect('/home')->with('success', 'Votre compte a bien été confirmé.');
+
+    }
 
 }

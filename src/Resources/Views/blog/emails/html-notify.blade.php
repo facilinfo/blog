@@ -1,4 +1,4 @@
-@extends('emails.html-template')
+@extends('blog::emails.html-template')
 
 @section('content')
 Bonjour {{ $user->name }},<br/><br/>
