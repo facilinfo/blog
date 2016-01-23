@@ -19,7 +19,7 @@
             {!! BootForm::checkbox("$permission->name", "$permission->id")->value('permitted')->check()!!}
         @else
             {!! BootForm::checkbox("$permission->name", "$permission->id")->value('permitted')!!}
-            @endpermission
+        @endif
 
             @endforeach
 </div>

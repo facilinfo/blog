@@ -1,4 +1,4 @@
-@extends('app')
+@extends('blog::blog.app')
 
 @section('title')
 	Liste des utilisateurs
@@ -9,14 +9,16 @@
 @stop
 
 @section('content')
-
+	<br>
+	<div class="col-md-offset-1 col-md-10">
+		@include('blog::blog.flash')
 
 				<h1>Liste des utilisateurs</h1>
 
 			<div class="panel-body">
-				<a class="btn btn-primary pull-right" href="{{ action('UserController@create') }}">  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un utilisateur</a>
+				<a class="btn btn-primary pull-right" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogUserController@create') }}">  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un utilisateur</a>
 				<br/><br/><br/>
-			<table class="table display" id="myTable">
+			<table id="FItable" class="table display">
 				<thead>
 					<tr>
 
@@ -40,11 +42,11 @@
 							</td>
 							<td class="pull-right">
 
-								<a class="btn btn-success" href="{{ action('UserController@show', $user) }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Voir</a>
+								<a class="btn btn-success" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogUserController@show', $user) }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Voir</a>
 
-								<a class="btn btn-warning" href="{{ action('UserController@edit', $user) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
+								<a class="btn btn-warning" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogUserController@edit', $user) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
 
-								<a class="btn btn-danger" href="{{ action('UserController@destroy', $user) }}" data-method="delete" data-confirm="Voulez vous vraiment supprimer cet utilisateur ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a>
+								<a class="btn btn-danger" href="{{ action('\Facilinfo\Blog\App\Http\Controllers\BlogUserController@destroy', $user) }}" data-method="delete" data-confirm="Voulez vous vraiment supprimer cet utilisateur ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a>
 
 							</td>
 						</tr>
@@ -53,7 +55,5 @@
 			</table>
 				</div>
 
-
+</div>
 @stop
-
-@include('scripts.tableScript')

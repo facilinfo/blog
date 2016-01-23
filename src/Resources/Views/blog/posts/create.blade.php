@@ -12,6 +12,6 @@
 	<div class="col-md-offset-1 col-md-10">
 		<h1>Ajouter un article</h1>
 
-		@include('blog.posts.form', ['action' => 'store'])
+		@include('blog::blog.posts.form', ['action' => 'store'])
 	</div>
 @endsection

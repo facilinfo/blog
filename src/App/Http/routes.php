@@ -18,6 +18,9 @@ Route::group(['namespace' => 'Facilinfo\Blog\App\Http\Controllers', 'prefix'=>'b
     //ROLES
     Route::resource('roles', 'BlogRoleController');
 
+    //USERS
+    Route::resource('users', 'BlogUserController');
+
 });
 
 

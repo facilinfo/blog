@@ -124,13 +124,10 @@
     <script>
         $('textarea').ckeditor(
                 {
-
-                    filebrowserBrowseUrl: '{!! url('/') !!}/filemanager/index.html',
-                    baseUrl: "/fsxsxilemanager/"
+                    filebrowserBrowseUrl: '{!! url('/') !!}/filemanager/index.html'
+                    //filebrowserBrowseUrl: '{!! url('/') !!}/filemanager/index.html?exclusiveFolder=test'
                 }
         );
-
-        // $('.textarea').ckeditor(); // if class is prefered.
     </script>
     @yield('scripts')
 </body>

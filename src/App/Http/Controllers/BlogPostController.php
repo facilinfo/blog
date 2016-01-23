@@ -51,7 +51,6 @@ class BlogPostController extends Controller
     {
         $posts = $this->postRepository->get();
 
-
         return view('blog::blog.posts.index', compact('posts'));
     }
 

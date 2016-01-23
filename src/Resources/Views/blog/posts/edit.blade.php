@@ -14,6 +14,6 @@
 	<div class="col-md-offset-1 col-md-10">
 		<h1>Modifier l'article "{!! $post->title !!}"</h1>
 
-		@include('blog.posts.form', ['action' => 'update'])
+		@include('blog::blog.posts.form', ['action' => 'update'])
 	</div>
 @endsection
